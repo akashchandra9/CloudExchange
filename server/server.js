@@ -1,5 +1,17 @@
 const express = require('express')
 var app = express()
+app.use(function(req, res, next) {
+      // res.header("Access-Control-Allow-Origin", "*");
+      const allowedOrigins = ['http://localhost:3000', 'http://gamebrag.onrender.com', 'https://gamebrag.onrender.com'];
+      const origin = req.headers.origin;
+      if (allowedOrigins.includes(origin)) {
+           res.setHeader('Access-Control-Allow-Origin', origin);
+      }
+      res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+      res.header("Access-Control-Allow-credentials", true);
+      res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, UPDATE");
+      next();
+    });
 const bodyparser=require('body-parser')
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended:true}));
@@ -16,7 +28,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 // app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
-app.use(cors());
+// app.use(cors());
 mongoose.connect(
   "mongodb+srv://akash85213:cneie1eSkFVrXAM5@cluster0.rwzgvis.mongodb.net/?retryWrites=true&w=majority"
 );
