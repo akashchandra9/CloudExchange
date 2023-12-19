@@ -15,8 +15,8 @@ const User=require("./Upload");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());
-app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
-// app.use(cors());
+// app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+app.use(cors());
 mongoose.connect(
   "mongodb+srv://akash85213:cneie1eSkFVrXAM5@cluster0.rwzgvis.mongodb.net/?retryWrites=true&w=majority"
 );
