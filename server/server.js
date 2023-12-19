@@ -2,7 +2,7 @@ const express = require('express')
 var app = express()
 app.use(function(req, res, next) {
       // res.header("Access-Control-Allow-Origin", "*");
-      const allowedOrigins = ['http://localhost:3000', 'http://gamebrag.onrender.com', 'https://gamebrag.onrender.com'];
+      const allowedOrigins = ['http://localhost:3000', 'https://skyboxclient.onrender.com'];
       const origin = req.headers.origin;
       if (allowedOrigins.includes(origin)) {
            res.setHeader('Access-Control-Allow-Origin', origin);
