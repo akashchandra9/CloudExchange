@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { UserContext } from './UserContext';
 const Updo = () => {
   useEffect(() => {
-    fetch("http://localhost:5000/profile", {
+    fetch(process.env.React_App_Host_Api+"/profile", {
       credentials: "include",
     }).then((response) => {
       response.json().then((userInfo) => {
