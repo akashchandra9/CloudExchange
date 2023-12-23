@@ -12,7 +12,7 @@ const Login = () => {
   
 const navigate = useNavigate();
 
-// const { setUserInfo } = useContext(UserContext);
+const { setUserInfo } = useContext(UserContext);
 const[backenddata,setbackenddata]=useState([])
 const [redirect, setRedirect] = useState(false);
   const[email,setemail]=useState('')
@@ -30,7 +30,7 @@ const [redirect, setRedirect] = useState(false);
     if (response.ok) {
       toast("success");
       response.json().then((userInfo) => {
-        // setUserInfo(userInfo);
+        setUserInfo(userInfo);
         setRedirect(true);
       });
     } else {
