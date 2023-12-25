@@ -285,25 +285,49 @@ app.post('/api/down',(req,res)=>{
  
 
 })
-app.post('/api/files',(req,res)=>{
-  var usern3=req.body.email
+app.post('/api/files', (req, res) => {
+  var usern3 = req.body.email;
+  var filePath = 'uploads/' + usern3;
 
-    var filePath = 'uploads/'+usern3;
-    fs.readdir(filePath, (err, files) => {
-        if (err) {
-          console.error('Error reading directory:', err);
-          return res.status(500).send('Error reading directory');
-        }
-    
-        // Filter out directories from the list of files
-        const filteredFiles = files.filter((file) => {
-          return fs.statSync(filePath + '/' + file).isFile();
-        });
-    
-        res.json(filteredFiles);
-      });
+  // Check if the directory exists, if not, create it
+  if (!fs.existsSync(filePath)) {
+    fs.mkdirSync(filePath, { recursive: true });
+  }
 
-})
+  fs.readdir(filePath, (err, files) => {
+    if (err) {
+      console.error('Error reading directory:', err);
+      return res.status(500).send('Error reading directory');
+    }
+
+    // Filter out directories from the list of files
+    const filteredFiles = files.filter((file) => {
+      return fs.statSync(filePath + '/' + file).isFile();
+    });
+
+    res.json(filteredFiles);
+  });
+});
+
+// app.post('/api/files',(req,res)=>{
+//   var usern3=req.body.email
+
+//     var filePath = 'uploads/'+usern3;
+//     fs.readdir(filePath, (err, files) => {
+//         if (err) {
+//           console.error('Error reading directory:', err);
+//           return res.status(500).send('Error reading directory');
+//         }
+    
+//         // Filter out directories from the list of files
+//         const filteredFiles = files.filter((file) => {
+//           return fs.statSync(filePath + '/' + file).isFile();
+//         });
+    
+//         res.json(filteredFiles);
+//       });
+
+// })
 
 app.post('/api/delete',(req,res)=>{
   var down3=req.body.download
