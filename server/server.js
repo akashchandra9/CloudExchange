@@ -234,13 +234,18 @@ const fileSchema = new mongoose.Schema({
   var usern='abc';
   const File = mongoose.model('File', fileSchema);  
   const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, 'uploads/'+usern+'/');
-    },
-    filename: function (req, file, cb) {
-      cb(null, file.originalname);
-    },
-  });
+  destination: function (req, file, cb) {
+    const userFolderPath = 'uploads/' + usern + '/';
+    // Check if the directory exists, if not, create it
+    if (!fs.existsSync(userFolderPath)) {
+      fs.mkdirSync(userFolderPath, { recursive: true });
+    }
+    cb(null, userFolderPath);
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
   const upload = multer({ storage: storage });
 
 app.post('/api/upload/user',(req,res)=>{
