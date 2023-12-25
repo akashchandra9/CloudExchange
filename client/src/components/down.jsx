@@ -62,15 +62,34 @@ const Down = () => {
   }}
  
     const [files, setFiles] = useState([]);
-  function show(){
-    var user={
-      email:email
+  function show() {
+      var user = {
+        email: email,
+      };
+    
+      axios.post(process.env.React_App_Host_Api + '/api/files', user)
+        .then((response) => {
+          const files = response.data;
+    
+          if (files.length === 0) {
+            toast.error("No files found");
+          }
+    
+          setFiles(files);
+        })
+        .catch(() => {
+          toast("An error occurred while fetching files");
+        });
     }
-    axios.post(process.env.React_App_Host_Api+'/api/files',user)
-      .then((response) => {
-        setFiles(response.data);
-      })
-  }
+  // function show(){
+  //   var user={
+  //     email:email
+  //   }
+  //   axios.post(process.env.React_App_Host_Api+'/api/files',user)
+  //     .then((response) => {
+  //       setFiles(response.data);
+  //     })
+  // }
  function dow(file){
   
   setdow(file);
