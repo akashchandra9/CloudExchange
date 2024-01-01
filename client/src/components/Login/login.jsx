@@ -43,7 +43,7 @@ const [redirect, setRedirect] = useState(false);
 	
 return (
 	<>
-     <p>{process.env.React_App_Host_Api}</p>
+{/*      <p>{process.env.React_App_Host_Api}</p> */}
 		
     <div className="App">
 
