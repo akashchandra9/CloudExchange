@@ -190,7 +190,7 @@ app.post('/login',async(req,res)=>{
           console.error(err);
           res.status(500).json("Internal server error");
         } else {
-          res.cookie("token", token).json({
+          res.cookie("token", token,{ sameSite: 'None', secure: true }).json({
             id: userDoc._id,
             email,
           });
